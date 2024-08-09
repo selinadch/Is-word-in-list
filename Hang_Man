@@ -1,0 +1,196 @@
+
+
+level0 = """
+  -------- 
+|        |
+|        o
+|       /|\\
+|       / \\
+|
+ ------------
+ """
+
+level1 = """
+  -------- 
+|        |
+|        o
+|       /|\\
+|       /  
+|
+ ------------
+ """
+level2 = """
+  -------- 
+|        |
+|        o
+|       /|\\
+|          
+|
+ ------------
+ """
+
+level3 = """
+  -------- 
+|        |
+|        o
+|        |\\
+|          
+|
+ ------------
+ """
+level4 = """
+   -------- 
+ |        |
+ |        o
+ |        | 
+ |          
+ |
+  ------------
+  """
+
+level5 = """
+   -------- 
+ |        |
+ |        o
+ |         
+ |          
+ |
+  ------------
+  """
+level6 = """
+   -------- 
+ |        |
+ |        
+ |         
+ |          
+ |
+  ------------
+  """
+level7 = """
+   -------- 
+ |        
+ |        
+ |         
+ |          
+ |
+  ------------
+  """
+
+level8 = """
+             
+ |        
+ |        
+ |         
+ |          
+ |
+  ------------
+  """
+
+level9 = """
+             
+         
+         
+          
+           
+ 
+ ------------
+  """
+level10 = """
+             
+         
+         
+          
+           
+ 
+ 
+  """
+
+#-------------------------------------------------------------------------------
+import numpy as np
+word_list = ["apple", "book", "desk", "pen", "cat", "dog", "tree", "house", "car", "phone",
+"computer", "laptop", "keyboard", "mouse", "chair", "table", "door", "window", "wall", "floor"]
+import random
+
+print("To start 2 player mode, type start()")
+print('To start 1 player mode, you against PCU, type start2()')
+def start():
+    the_word=input("player1, what's the word?  --> ")
+    n=len(the_word)
+    level=int(10)
+    levels = [level0,level1,level2,level3,level4,level5,level6,level7,level8,level9,level10]#0 to 10
+    guessing=list()
+    the_word_sep=list("")
+    guessed=list()
+
+    for i in range(n): #create guessing= h _ l l _ _ and the_word_sep = h e l l o
+        line = ("_ ")
+        guessing += line
+        the_word_sep += ((the_word[i]) + " ")
+        
+    print(''.join(guessing))
+    
+    while (guessing != the_word_sep) and level >=0: 
+        guess= input('\nPlayer 2, guess a letter: ')
+        
+        if guess in guessed:
+            print('already guessed!')
+        else:
+            guessed.append(guess)
+            
+            if guess in the_word_sep:
+                for jj in range(2*n):
+                    if guess == the_word_sep[jj]:
+                        guessing[jj] = the_word_sep[jj]
+            else:
+                print('Wrong!')
+                level -= 1
+            
+        print(levels[level])
+        print(''.join(guessing))
+    
+    if level <0:
+        print("Sorry you lost! \nThe word was ", the_word)
+    elif (guessing == the_word_sep):
+        print('You win!\nThe word was ',the_word)
+
+    
+    
+def start2():
+    the_word=random.choice(word_list)
+    n=len(the_word)
+    level=int(10)
+    levels = [level0,level1,level2,level3,level4,level5,level6,level7,level8,level9,level10]#0 to 10
+    guessing=list()
+    the_word_sep=list("")
+    guessed=list()
+
+    for i in range(n): #create guessing= h _ l l _ _ and the_word_sep = h e l l o
+        line = ("_ ")
+        guessing += line
+        the_word_sep += ((the_word[i]) + " ")
+        
+    print(''.join(guessing))
+    
+    while (guessing != the_word_sep) and level >=0: 
+        guess= input('\nGuess a letter: ')
+        
+        if guess in guessed:
+            print('already guessed!')
+        else:
+            guessed.append(guess)
+            
+            if guess in the_word_sep:
+                for jj in range(2*n):
+                    if guess == the_word_sep[jj]:
+                        guessing[jj] = the_word_sep[jj]
+            else:
+                print('Wrong!')
+                level -= 1
+            
+        print(levels[level])
+        print(''.join(guessing))
+    
+    if level <0:
+        print("Sorry you lost! \nThe word was ", the_word)
+    elif (guessing == the_word_sep):
+        print('You win!\nThe word was ',the_word)
